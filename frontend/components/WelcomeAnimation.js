@@ -46,6 +46,8 @@ const WelcomeAnimation = () => {
         );
     }
 
+
+    
     return (
         <div className="relative min-h-screen bg-white overflow-hidden">
             {/* Top div animating down */}
