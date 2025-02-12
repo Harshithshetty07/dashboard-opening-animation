@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Play, Pause } from 'lucide-react';
 
 function VideoPage() {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [videoSize, setVideoSize] = useState('large');
   const [padding, setPadding] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const videoRef = useRef(null);
 
   // Handle scroll events
   useEffect(() => {
@@ -12,14 +15,12 @@ function VideoPage() {
       setScrollPosition(position);
       
       // Calculate padding based on scroll position
-      // Max padding of 5% (as per your original px-[5%])
       const maxPadding = 5;
-      const scrollThreshold = 100; // Point at which to start transitioning
+      const scrollThreshold = 100;
       
       if (position > scrollThreshold) {
-        // Calculate padding percentage based on scroll position
         const calculatedPadding = Math.min(
-          (position - scrollThreshold) / 10, // Adjust divisor to control padding increase rate
+          (position - scrollThreshold) / 10,
           maxPadding
         );
         setPadding(calculatedPadding);
@@ -34,35 +35,61 @@ function VideoPage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Handle play/pause
+  const togglePlayPause = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
   return (
     <div className="min-h-screen">
-      {/* Padding div to enable scrolling */}
       <div className="h-screen">
-        {/* Video container with dynamic sizing */}
         <div 
           className={`fixed top-0 left-0 w-full transition-all duration-300 ease-in-out 
             ${videoSize === 'small' ? 'h-48' : 'h-screen'}`}
         >
-          <video
-            className={`rounded-lg object-cover transition-all duration-300 ease-in-out
-              ${videoSize === 'small'
-                ? `w-full h-[30rem] fixed top-4`
-                : 'w-full h-[40rem] top-4 right-4 left-4 bottom-4'}`}
-            style={{
-              paddingLeft: `${padding}%`,
-              paddingRight: `${padding}%`
-            }}
-            autoPlay
-            loop
-            muted
-          >
-            <source src="/videos/Wax-video.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+          <div className="relative">
+            <video
+              ref={videoRef}
+              className={`rounded-lg object-cover transition-all duration-300 ease-in-out
+                ${videoSize === 'small'
+                  ? `w-full h-[30rem] fixed top-4`
+                  : 'w-full h-[40rem] top-4 right-4 left-4 bottom-4'}`}
+              style={{
+                paddingLeft: `${padding}%`,
+                paddingRight: `${padding}%`
+              }}
+              autoPlay
+              loop
+              muted
+            >
+              <source src="/videos/Wax-video.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            
+            {/* Play/Pause Button */}
+
+            
+            <button
+              onClick={togglePlayPause}
+              className="absolute bottom-4 right-6 flex justify-end bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-70 transition-all duration-200"
+              aria-label={isPlaying ? 'Pause video' : 'Play video'}>
+              {isPlaying ? (
+                <Pause className="w-10 h-10" />
+              ) : (
+                <Play className="w-10 h-10" />
+              )}
+            </button>
+          </div>
         </div>
       </div>
       
-      {/* Content below video for scrolling */}
       <div className="min-h-screen bg-white p-8">
         <h1 className="text-2xl font-bold mb-4">Scroll to see video resize</h1>
         <p className="mb-4">Start scrolling to see the video transition to a smaller size...</p>
