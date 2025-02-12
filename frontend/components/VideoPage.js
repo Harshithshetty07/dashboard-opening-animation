@@ -11,15 +11,15 @@ function VideoPage() {
       const position = window.scrollY;
       setScrollPosition(position);
       
-      // Calculate dynamic padding based on scroll position
-      // Max padding of 5% (as per your original className)
+      // Calculate padding based on scroll position
+      // Max padding of 5% (as per your original px-[5%])
       const maxPadding = 5;
-      const scrollThreshold = 100; // Adjust this value to control when padding starts changing
+      const scrollThreshold = 100; // Point at which to start transitioning
       
       if (position > scrollThreshold) {
         // Calculate padding percentage based on scroll position
         const calculatedPadding = Math.min(
-          (position - scrollThreshold) / 300 * maxPadding, // Adjust 300 to control how fast padding increases
+          (position - scrollThreshold) / 10, // Adjust divisor to control padding increase rate
           maxPadding
         );
         setPadding(calculatedPadding);
@@ -31,10 +31,7 @@ function VideoPage() {
     };
 
     window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
@@ -42,15 +39,18 @@ function VideoPage() {
       {/* Padding div to enable scrolling */}
       <div className="h-screen">
         {/* Video container with dynamic sizing */}
-        <div className={`fixed top-0 left-0 w-full transition-all duration-300 ease-in-out 
-          ${videoSize === 'small' ? 'h-48' : 'h-screen'}`}>
+        <div 
+          className={`fixed top-0 left-0 w-full transition-all duration-300 ease-in-out 
+            ${videoSize === 'small' ? 'h-48' : 'h-screen'}`}
+        >
           <video
             className={`rounded-lg object-cover transition-all duration-300 ease-in-out
               ${videoSize === 'small'
-                ? `w-full h-[40rem] fixed top-4`
+                ? `w-full h-[30rem] fixed top-4`
                 : 'w-full h-[40rem] top-4 right-4 left-4 bottom-4'}`}
             style={{
-              padding: `${padding}%`,
+              paddingLeft: `${padding}%`,
+              paddingRight: `${padding}%`
             }}
             autoPlay
             loop
@@ -66,11 +66,11 @@ function VideoPage() {
       <div className="min-h-screen bg-white p-8">
         <h1 className="text-2xl font-bold mb-4">Scroll to see video resize</h1>
         <p className="mb-4">Start scrolling to see the video transition to a smaller size...</p>
-        {/* Add more content for scrolling */}
         <div className="space-y-4">
-          {Array(10).fill(null).map((_, i) => (
+          {[...Array(10)].map((_, i) => (
             <p key={i} className="text-gray-600">
-              Scroll content {i + 1}. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Scroll down to see the padding effect... The padding will increase smoothly as you scroll down
+              and decrease as you scroll back up.
             </p>
           ))}
         </div>
