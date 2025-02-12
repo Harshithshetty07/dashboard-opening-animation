@@ -74,8 +74,6 @@ function VideoPage() {
             </video>
             
             {/* Play/Pause Button */}
-
-            
             <button
               onClick={togglePlayPause}
               className="absolute bottom-4 right-6 flex justify-end bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-70 transition-all duration-200"
