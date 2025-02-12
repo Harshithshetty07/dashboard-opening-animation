@@ -59,8 +59,8 @@ function VideoPage() {
               ref={videoRef}
               className={`rounded-lg object-cover transition-all duration-300 ease-in-out
                 ${videoSize === 'small'
-                  ? `w-full h-[30rem] fixed top-4`
-                  : 'w-full h-[40rem] top-4 right-4 left-4 bottom-4'}`}
+                  ? `w-full h-[30rem] fixed top-4 rounded-lg`
+                  : 'w-full h-[40rem] top-4 right-4 left-4 bottom-4 rounded-lg'}`}
               style={{
                 paddingLeft: `${padding}%`,
                 paddingRight: `${padding}%`
