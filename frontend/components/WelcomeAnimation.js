@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import WaxImg from '../public/images/wax-injection-machine-.png'
 import CmtiLogo from '../public/images/cmti-logo.png'
+import VideoPage from './VideoPage';
 
 const WelcomeAnimation = () => {
     const [showTitle, setShowTitle] = useState(false);
@@ -84,16 +85,16 @@ const WelcomeAnimation = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
-                className="min-h-screen bg-gray-100 p-8"
+                className="h-screen"
             >
-                <motion.h1
+                <motion.div
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.2, duration: 0.5 }}
-                    className="text-4xl font-bold text-gray-800"
+                    className=""
                 >
-                    Welcome to Dashboard
-                </motion.h1>
+                    <VideoPage />
+                </motion.div>
             </motion.div>
         );
     }
