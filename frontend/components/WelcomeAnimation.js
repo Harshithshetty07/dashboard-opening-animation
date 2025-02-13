@@ -6,6 +6,7 @@ import Image from 'next/image';
 import WaxImg from '../public/images/wax-injection-machine-.png'
 import CmtiLogo from '../public/images/cmti-logo.png'
 import VideoPage from './VideoPage';
+import ProductInfo from './ProductInfo';
 
 const WelcomeAnimation = () => {
     const [showTitle, setShowTitle] = useState(false);
@@ -93,6 +94,7 @@ const WelcomeAnimation = () => {
                     transition={{ delay: 0.2, duration: 0.5 }}
                     className=""
                 >
+                    <ProductInfo />
                     <VideoPage />
                 </motion.div>
             </motion.div>

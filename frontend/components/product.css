@@ -1,0 +1,46 @@
+.animated-text {
+    text-transform: uppercase;
+    letter-spacing: 0.5em;
+    display: inline-block;
+    border: 4px double rgba(0, 0, 0, 0.25);
+    border-width: 4px 0;
+    padding: 1.5em 0;
+    transition: border-color 0.3s ease;
+  }
+  
+  :root[class~="dark"] .animated-text {
+    border: 4px double rgba(255, 255, 255, 0.25);
+    border-width: 4px 0;
+  }
+  
+  .animated-text .logo-text {
+    font: 700 4em/1 "Oswald", sans-serif;
+    letter-spacing: 0;
+    padding: 0.25em 0 0.325em;
+    display: block;
+    margin: 0 auto;
+    text-shadow: 0 0 80px rgba(0, 0, 0, 0.5);
+    background: url(https://i.ibb.co/RDTnNrT/animated-text-fill.png) repeat-y;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: aitf 80s linear infinite;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    filter: invert(1);  /* Inverts colors for light mode */
+    transition: text-shadow 0.3s ease;
+  }
+  
+  :root[class~="dark"] .animated-text .logo-text {
+    text-shadow: 0 0 80px rgba(255, 255, 255, 0.5);
+    filter: none;  /* Removes inversion for dark mode */
+  }
+  
+  @keyframes aitf {
+    0% { 
+        background-position: 0% 50%; 
+    }
+    100% { 
+        background-position: 100% 50%; 
+    }
+  }
